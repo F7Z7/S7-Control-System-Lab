@@ -1,0 +1,87 @@
+# MATLAB and Simulink specific gitignore
+
+# Windows default autosave extension
+*.asv
+
+# OSX / *nix default autosave extension
+*.m~
+
+# Compiled MEX binaries (all platforms)
+*.mex*
+
+# Packaged app and toolbox files
+*.mlappinstall
+*.mltbx
+
+# Generated helpsearch folders
+helpsearch*/
+
+# Simulink code generation folders
+slprj/
+sccprj/
+
+# Matlab code generation folders
+codegen/
+
+# Simulink autosave extension
+*.autosave
+
+# Simulink cache files
+*.slxc
+
+# Octave session info
+octave-workspace
+
+# Generated C/C++ code
+*.exe
+*.dll
+*.lib
+*.obj
+*.o
+*.a
+
+# Simulink binary file
+# *.slx can be added if you don't want to track binary Simulink files
+# *.slx
+
+# Matlab data files
+# Uncomment the following line if you don't want to track .mat files
+# *.mat
+
+# Simulink diagram layout
+*.slx.r*
+*.mdl.r*
+
+# Exported figures
+*.eps
+*.pdf
+*.jpg
+*.png
+
+# MATLAB Editor recovered temporary files
+*~.m
+
+# Session info
+.DS_Store
+Thumbs.db
+
+# Simulink configuration
+*.tmw
+
+# Log files
+*.log
+
+# Generated reports
+/report/
+/reports/
+
+# Build folders
+/build/
+/Build/
+/MATLAB_BUILD/
+
+# Hardware-specific folders
+/MATLAB_HARDWARE/
+
+# Cache and temporary files
+*.tmp
