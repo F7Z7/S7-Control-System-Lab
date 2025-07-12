@@ -35,6 +35,6 @@ end
 legend(legend_entries, 'Location', 'southeast', 'FontSize', 10, 'Box', 'on');
 xlabel('Time (s)');
 ylabel('Amplitude');
-title('Step Response of Second Order RLC Series');
+title('Step Response of Second Order RLC Series by varying R');
 grid on;
 hold off;
