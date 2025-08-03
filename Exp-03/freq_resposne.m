@@ -1,23 +1,21 @@
-% Define common denominator
-d = conv(conv([1 1], [1 5]), [1 0]);  % Denominator doesn't change
+clc;
+clear;
 
-% --- System 1 ---
-n1 = 10;
-sys1 = tf(n1, d);
-figure;                      % Open new figure
-margin(sys1);                % Plot gain/phase margin for sys1
-%title('System 1: n = 10');
+% Denominator
+d = conv(conv([1 1], [1 5]), [1 0]);  % (s+1)(s+5)s
 
-% --- System 2 ---
-n2 = 29.999;
-sys2 = tf(n2, d);
-figure;                      % Open new figure
-margin(sys2);
-%title('System 2: n = 29.999');
+% System gains
+k_values = [10, 29.999, 100];
 
-% --- System 3 ---
-n3 = 100;
-sys3 = tf(n3, d);
-figure;                      % Open new figure
-margin(sys3);
-%title('System 3: n = 100');
+figure;  % Single figure for all subplots
+
+for i = 1:length(k_values)
+    k = k_values(i);
+    sys = tf(k, d);
+    
+    subplot(3,2,i);        % 3 rows, 1 column, current plot
+    margin(sys);           % Bode plot with margins
+    
+    % Optional: Label subplot with k value
+    text(0.1,0.1,sprintf('k = %.3f',k),'Units','normalized','FontSize',10,'FontWeight','bold');
+end
