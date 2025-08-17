@@ -10,4 +10,4 @@ n=1;
 d1=conv([1 1],[1 2]);
 d=conv([1 0],d1);
 sys=tf(n,d);
-nyquist(sys)
+%nyquist(sys)
