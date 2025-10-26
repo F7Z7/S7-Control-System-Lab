@@ -18,7 +18,7 @@ n = {n1, n2, n3, n4, n5, n6};
 d = {d1, d2, d3, d4, d5, d6};
 
 for i=1:6
-    sys=tf(n{i},d{i})
+    sys=tf(n{i},d{i});
 
     subplot(3,2,i);
     nyquist(sys);
