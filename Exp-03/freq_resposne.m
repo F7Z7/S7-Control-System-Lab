@@ -16,6 +16,5 @@ for i = 1:length(k_values)
     subplot(3,2,i);        % 3 rows, 1 column, current plot
     margin(sys);           % Bode plot with margins
     
-    % Optional: Label subplot with k value
-    text(0.1,0.1,sprintf('k = %.3f',k),'Units','normalized','FontSize',10,'FontWeight','bold');
+   
 end
