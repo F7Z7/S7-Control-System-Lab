@@ -1,58 +1,34 @@
-clc;
-clear all;
+n=10;
+d=[1 1 0];
 
-%-------------------------------
-% 1. Define the plant
-%-------------------------------
-num = [10];           % numerator of G(s)
-den = [1 1 0];        % denominator of G(s)
-G = tf(num, den);
+sys=tf(n,d);
+[Gm,Pm,Wcg,Wcp]=margin(sys);
 
-%-------------------------------
-% 2. Phase margin of uncompensated system
-%-------------------------------
-figure;
-margin(G);
+desired=45;
+epsilon=5;
+phinew=-180+desired+epsilon;
+[mag,phase,w]=bode(sys);
+mag = squeeze(mag);
+phase = squeeze(phase);
+
+
+w_new=interp1(phase,w,phinew);
+
+
+wz=w_new/10;
+T = 1 / wz;
+
+Agcn= 20*log10(interp1(w, mag, w_new));
+
+beta=10^(Agcn/20);
+
+lag_comp = tf([T 1], [beta*T 1]);
+
+ sys_comp = (sys*lag_comp);
+
+ figure;
+margin(sys);
 hold on;
-[GM, PM, wgc, ~] = margin(G);
-fprintf('Uncompensated system:\n');
-fprintf('PM = %.2f deg, Gain crossover wgc = %.2f rad/s\n', PM, wgc);
-
-%-------------------------------
-% 3. Desired phase margin and safety margin
-%-------------------------------
-SM = input('Enter desired phase margin (deg): ');
-epsilon = 5;                  % initial choice of safety margin
-gamma_n = SM + epsilon;        % adjusted desired PM
-phi_gcn = -180 + gamma_n;      % phase at new gain crossover
-
-w = logspace(-1, 2, 1000);        
-[mag, Ph] = bode(G, w);
-magdb = 20*log10(squeeze(mag));
-Ph = squeeze(Ph);
-
-
-omega_gcn = interp1(Ph, w, phi_gcn);
-
-
-Agcn = interp1(w, magdb, omega_gcn);
-beta = 10^(Agcn/20);
-fprintf('Lag compensator parameter beta = %.2f\n', beta);
-
-
-Tz = 1/(10*omega_gcn);         
-Tp = beta * Tz;                 
-
-Dlag = tf([Tz 1], [Tp 1]);
-
-Dlag
-
-
-Gcomp = Dlag * G;
-figure;
-margin(Gcomp);
+margin(sys_comp);
+legend('Uncompensated','Lag Compensated');
 grid on;
-title('Bode plot with Lag Compensator');
-
-[GMc, PMc, wgc_comp, ~] = margin(Gcomp);
-wgc_comp;
